@@ -1,0 +1,201 @@
+What is component?
+Component is a class that has typescript code.
+
+
+What is Directive?
+The directive is called as TypeDecorator, name of type decorator here is "@Component()", which has {} to specify the properties of the component.
+This is component directive, ie direction on which the component/class will run
+@Component({
+  selector: 'app-root', //calling the class means selector
+  imports: [RouterOutlet],
+  //templateUrl: './app.html', //path of html for the component
+  template:'<h1>Good Morning...</h1>',//if the html is one or two code of line, use template instead of templateurl
+  styleUrl: './app.css'//the css file required to style the app.html
+})
+
+Interpolation brackets:
+Are used for printing {{}}
+
+---------
+
+3 files working for components
+.ts ---> all typescript code
+.html ---> all html code
+.css ---->all css code
+------------------------------
+
+
+main.ts--->App----->customer-----> app.html(selector of customer)
+--------------------------------------------------------------------
+
+Data binding:
+1) One way: the flow of data is uni-directional
+a) Interpolation---> push the data from the component to html(view)----{{}}
+b)Property Binding----> Component to the html(view)------>[]=propertyname in the component.ts
+c)Event Binding------>Component to the html(view)----->(eventname)="methodname()"
+
+
+2)Two way: the flow of data is bi-directional
+
+a)[ngModel]
+---------------------------------------------------
+Directives:structural and attribute
+structural Directives:
+if,for,switch-----*ngIf , *ngFor, ngSwitch, 
+
+Attribute Directives:
+ngStyle,ngClass,routerLink
+
+--------------------------
+
+Orderstatus--->placed/pending/shipped/delivered
+
+ngStyle--->styling the elements
+
+----------------------------------
+
+@Input and @Output and EventEmitter
+
+
+
+1) Parent component:MovieList: listofmovies[]
+Parent(MovieList) will send the moviename(data) to the child(MovieTicket)---- @Input(Parent is giving input to the child)
+
+
+2) Child component:MovieTicket: bookticket()
+Child(MovieTicket) will emit/output(BookTicket) event -----@Output
+
+
+export class MovieList {
+movies:Movie[]=[
+  {movieid:1,moviename:"Avengers",price:400},
+  {movieid:2,moviename:"GodFather",price:450},
+  {movieid:3,moviename:"Toxic",price:440}
+];
+
+bookedMovies:Movie[]=[];
+
+bookTicket(movie:Movie)
+{
+  this.bookedMovies.push(movie);
+}
+
+}
+-----------------------------------------------------------
+
+export class MovieTicket {
+@Input() movie!:Movie;
+
+@Output() book=new EventEmitter<Movie>();
+
+bookTicket()
+{
+ this.book.emit(this.movie);
+ //emit--throw--ticket
+}
+
+}
+
+-------------------------------------------
+Routing: Moving between componets,parts of application.
+
+Menus and menubars
+--------
+
+Step 1:
+app-routing.module.ts must be there
+-----------------
+If not available create the file, using the following command:
+ng g module app-routing --flat --module=app
+----------------------
+Step 2:
+ng g c home
+ng g c movies
+ng g c contact
+---------------------
+Step 3: 
+Create the menus:
+Create  menus on app.html and also give router outlet on same html page.
+<router-outlet></router-outlet> is the view container(html)
+RouterModule.forRoot()---> main routing job will be done by this
+--------
+step4:
+give the routes array with path and component name.
+
+----------------------------------------------
+movies/1--- getbyid
+
+Details:
+1
+----------
+
+customers
+List of customers
+1 A Pune 
+customerdetails
+
+customerdetails?id=1&name=A&city=Pune
+id
+name
+city
+-----------------------------------------
+
+1) Create folder products  under app
+Go Inside the folder and create components.
+2) Create  3 components- productsData, productsList and Products Details, Then take all files of
+all the components in the products folder  directly, delete the folders -productsData, productsList and Products Details.
+3) products.module.ts
+u automatically get the components referenced.
+4) products-routing.module.ts
+ 2 routes:path:'',component:productlist
+          path:':id',component:productsdetails
+
+In the productsdata.html,
+<router-outlet>and productlist 
+In productslist component define the products list using array
+in productslist.html--->display partial data of the product using ngfor and using routerlink pass the id parameter
+
+In productdetails:
+subscribe
+
+---------
+5)Go to app-routing.module.ts: path:'products', 
+					path:'',redirect:'products' (ie products module)---> product routing and 
+product routing, route:path:'', component:ProductData
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
