@@ -1,0 +1,7 @@
+<p>customers works!</p>
+<ul>
+    <li *ngFor="let c of customerlist">
+        {{c.id}}-- {{c.name}} --{{c.city}}
+    <a [routerLink]="['/customerdetails']"[queryParams]="{custid:c.id,custname:c.name,custcity:c.city}">Show Details</a>
+    </li>
+</ul>
